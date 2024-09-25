@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://b1kuvx55h7y16"]
+
+[ext_resource type="PackedScene" uid="uid://5xxmnvuvutqa" path="res://Scenes/Player.tscn" id="1_38efr"]
+[ext_resource type="Script" path="res://Scripts/MainScene.gd" id="1_vhr5j"]
+[ext_resource type="PackedScene" uid="uid://kyk0tu7rof2o" path="res://Scenes/Projectile.tscn" id="5_nusl4"]
+[ext_resource type="PackedScene" uid="uid://khe0arfo48p8" path="res://Scenes/Background.tscn" id="6_jvoxv"]
+
+[node name="MainScene" type="Node2D"]
+script = ExtResource("1_vhr5j")
+
+[node name="Background" parent="." instance=ExtResource("6_jvoxv")]
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="Player" parent="Node2D" instance=ExtResource("1_38efr")]
+
+[node name="Projectile" parent="Node2D" instance=ExtResource("5_nusl4")]
+
+[node name="EnemyTimer" type="Timer" parent="."]
+
+[node name="FuelTimer" type="Timer" parent="."]
+
+[node name="ObstacleTimer" type="Timer" parent="."]
