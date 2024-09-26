@@ -12,8 +12,8 @@ func _physics_process(delta):
 		queue_free()
 
 # Função que lida com a colisão
-# COMEÇAR CORREÇÃO AQUI!!
 func _on_Projectile_body_entered(body):
-	if body is Enemy or body is Obstacle:  # Verifica se o corpo é um inimigo ou obstáculo
-		body.queue_free()  # Destrói o inimigo/obstáculo
-		queue_free()  # Destrói o projétil após a colisão
+	pass
+	#if body.name == "Enemy" or body.name == "Obstacle":
+		#body.queue_free()  # Destroi o inimigo/obstáculo
+		#queue_free()  # Destroi o projétil após a colisão

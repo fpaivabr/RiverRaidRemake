@@ -1,57 +1,40 @@
-extends CharacterBody2D
+# scripts/MainScene.gd
+extends Node2D
 
-# Preload da cena do projétil
-@onready var Projectile = preload("res://Scenes/Projectile.tscn")
+@onready var Player = preload("res://scenes/Player.tscn")
+@onready var Enemy = preload("res://scenes/Enemy.tscn")
+@onready var Fuel = preload("res://scenes/Fuel.tscn")
 
-# Variáveis de controle do jogador
-var velocidade = 200
-var inclinacao_maxima = 15
-var combustivel = 100  # Combustível inicial
-
-# Movimentação do jogador
-func _physics_process(delta):
-	var direcao = Vector2()
-
-	# Controles do jogador
-	if Input.is_action_pressed("ui_left"):
-		direcao.x = -1
-	elif Input.is_action_pressed("ui_right"):
-		direcao.x = 1
-
-	# Movimentação para cima (padrão do RiverRaid)
-	direcao.y = -1
+# Função que é executada ao iniciar a cena
+func _ready():
+	# Instancia o jogador na posição inicial
+	if get_node("Player") == null:
+		var player_instance = Player.instantiate()
+		player_instance.position = Vector2(200, 500)  
+		add_child(player_instance)
 	
-	# Aplica o movimento
-	velocity = direcao.normalized() * velocidade
-	move_and_slide()
+	# Verifica se os Timers existem antes de iniciá-los
+	if get_node("EnemyTimer"):
+		print("EnemyTimer encontrado!")
+		get_node("EnemyTimer").start()
 
-	# Controla a inclinação da nave com base no movimento lateral
-	if direcao.x != 0:
-		rotation_degrees = lerp(rotation_degrees, direcao.x * inclinacao_maxima, 0.1)
-	else:
-		rotation_degrees = lerp(rotation_degrees, 0.0, 0.1)
+	# Faz o mesmo para os outros Timers
+	get_node("FuelTimer").start()
 
-	# Consome combustível
-	combustivel -= delta * 5
-	if combustivel <= 0:
-		morrer()
+# Função para spawnar inimigos periodicamente
+func _on_EnemyTimer_timeout():
+	var enemy_instance = Enemy.instantiate()
+	enemy_instance.position = Vector2(randf_range(50, 400), -50)  # Posiciona os inimigos acima da tela
+	add_child(enemy_instance)
 
-	# Verifica se o jogador pressionou o "espaço" para atirar
-	if Input.is_action_just_pressed("shoot"):
-		disparar_projetil()
+# Função para spawnar combustível periodicamente
+func _on_FuelTimer_timeout():
+	var fuel_instance = Fuel.instantiate()
+	fuel_instance.position = Vector2(randf_range(50, 400), -50)  # Posiciona o combustível acima da tela
+	add_child(fuel_instance)
 
-# Função para disparar o projétil
-func disparar_projetil():
-	var proj_instance = Projectile.instantiate()
-	proj_instance.position = position  # O projétil será criado na posição do player
-	get_parent().add_child(proj_instance)  # Adiciona o projétil à cena
-
-# Função para lidar com a destruição do jogador quando o combustível acaba
-func morrer():
-	queue_free()
-
-# Função para reabastecer o combustível
-func reabastecer(quantidade):
-	combustivel += quantidade
-	if combustivel > 100:
-		combustivel = 100
+# Função para spawnar obstáculos periodicamente
+#func _on_ObstacleTimer_timeout():
+#	var obstacle_instance = Obstacle.instantiate()
+#	obstacle_instance.position = Vector2(randf_range(50, 400), -50)  # Posiciona os obstáculos acima da tela
+#	add_child(obstacle_instance)
