@@ -1,4 +1,3 @@
-# scripts/Player.gd
 extends CharacterBody2D
 
 # Preload da cena do projétil
@@ -7,7 +6,7 @@ extends CharacterBody2D
 # Variáveis de controle do jogador
 var velocidade = 200
 var inclinacao_maxima = 15
-var combustivel = 100  # Combustível inicial
+var combustivel = 200  # Combustível inicial aumentado
 
 # Movimentação do jogador
 func _physics_process(delta):
@@ -19,33 +18,32 @@ func _physics_process(delta):
 	elif Input.is_action_pressed("ui_right"):
 		direcao.x = 1
 
-	# Movimentação para cima (padrão do RiverRaid)
-	direcao.y = -1
 	
 	# Aplica o movimento
 	velocity = direcao.normalized() * velocidade  # Atualiza a velocidade
-	move_and_slide()  # Usa a função para mover a nave
+	move_and_slide()
 
 	# Controla a inclinação da nave com base no movimento lateral
 	if direcao.x != 0:
 		rotation_degrees = lerp(rotation_degrees, direcao.x * inclinacao_maxima, 0.1)
 	else:
-		rotation_degrees = lerp(rotation_degrees, 0, 0.1)
+		rotation_degrees = lerp(rotation_degrees, 0.0, 0.1)
 
-	# Consome combustível
-	combustivel -= delta * 10
+	# Consome combustível mais devagar
+	combustivel -= delta * 5
 	if combustivel <= 0:
 		morrer()
 
 # Função para lidar com a destruição do jogador quando o combustível acaba
 func morrer():
+	print("Player morreu por falta de combustível")
 	queue_free()
 
 # Função para reabastecer o combustível
 func reabastecer(quantidade):
 	combustivel += quantidade
-	if combustivel > 100:
-		combustivel = 100
+	if combustivel > 200:  # Limita o combustível a 200
+		combustivel = 200
 
 # Disparar o projétil
 func disparar_projetil():

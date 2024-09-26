@@ -10,14 +10,14 @@ script = ExtResource("1_vhr5j")
 
 [node name="Background" parent="." instance=ExtResource("6_jvoxv")]
 
-[node name="EnemyTimer" type="Timer" parent="."]
-
-[node name="FuelTimer" type="Timer" parent="."]
-
-[node name="ObstacleTimer" type="Timer" parent="."]
-
 [node name="Node2D" type="Node2D" parent="."]
 
 [node name="Player" parent="Node2D" instance=ExtResource("1_38efr")]
 
 [node name="Projectile" parent="Node2D" instance=ExtResource("5_nusl4")]
+
+[node name="EnemyTimer" type="Timer" parent="."]
+
+[node name="FuelTimer" type="Timer" parent="."]
+
+[node name="ObstacleTimer" type="Timer" parent="."]
