@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=3 uid="uid://cumycjm4nnxef"]
+
+[ext_resource type="Texture2D" uid="uid://c3ixhq1fc4e3m" path="res://Assets/images/projectile.png" id="2_vbekh"]
+
+[sub_resource type="GDScript" id="GDScript_v0xnu"]
+script/source = "extends Node2D
+
+var velocidade = 400
+
+# Called when the node enters the scene tree for the first time.
+func _physics_process(delta):
+	position.y -= velocidade * delta
+
+	if position.y < 0:
+		queue_free()
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5dq1e"]
+size = Vector2(75, 118)
+
+[node name="Bullet" type="Node2D"]
+script = SubResource("GDScript_v0xnu")
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
+texture = ExtResource("2_vbekh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+position = Vector2(-8.5, -6)
+shape = SubResource("RectangleShape2D_5dq1e")
