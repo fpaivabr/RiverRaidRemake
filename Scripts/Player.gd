@@ -58,7 +58,7 @@ func _physics_process(delta):
 		
 func disparar(): 
 	var bullet = Projectile.instantiate()
-	bullet.position = self.position + Vector2(0, -50)
+	bullet.position = $Marker2D.position
 	get_parent().add_child(bullet)
 	print("Projétil disparado!")
 
@@ -69,4 +69,4 @@ func reabastecer(quantidade):
 
 func morrer():
 	queue_free()
-	get_node("/root/MainScene").game_over()
+	get_node("/root/Scenes/MainScene").game_over()
