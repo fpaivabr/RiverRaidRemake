@@ -1,0 +1,127 @@
+[gd_scene load_steps=20 format=3 uid="uid://yyylj2ogvivj"]
+
+[ext_resource type="PackedScene" uid="uid://b34jet1tydsdr" path="res://Componentes/Personagens/AtaqueComponente.tscn" id="1_avehm"]
+[ext_resource type="Script" path="res://Componentes/Personagens/Inimigo.gd" id="1_qvjce"]
+[ext_resource type="PackedScene" uid="uid://bkltef67bey07" path="res://Componentes/Personagens/HurtboxComponente.tscn" id="2_6qk0o"]
+[ext_resource type="PackedScene" uid="uid://1iqtcsekf216" path="res://Componentes/Personagens/VidaComponente.tscn" id="2_ygkf2"]
+[ext_resource type="Texture2D" uid="uid://yfwycs544m0o" path="res://Assets/Sprite inimigo heli.png" id="3_to784"]
+[ext_resource type="PackedScene" uid="uid://djn80h0ew1tui" path="res://Projeteis/Inimigos/AtaqueHeli.tscn" id="3_wggqa"]
+[ext_resource type="Texture2D" uid="uid://b0e88qnijlfa" path="res://Assets/Tailmap.png" id="7_lxm34"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ja5y6"]
+size = Vector2(18, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_84t45"]
+atlas = ExtResource("3_to784")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3a84d"]
+atlas = ExtResource("3_to784")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0cuhn"]
+atlas = ExtResource("3_to784")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bq2pr"]
+atlas = ExtResource("7_lxm34")
+region = Rect2(32, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_41cdf"]
+atlas = ExtResource("7_lxm34")
+region = Rect2(48, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fiycp"]
+atlas = ExtResource("7_lxm34")
+region = Rect2(64, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ui6ce"]
+atlas = ExtResource("7_lxm34")
+region = Rect2(80, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i8qti"]
+atlas = ExtResource("7_lxm34")
+region = Rect2(96, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d1fd6"]
+atlas = ExtResource("7_lxm34")
+region = Rect2(112, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sgyfm"]
+atlas = ExtResource("7_lxm34")
+region = Rect2(128, 16, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_icg1f"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_84t45")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3a84d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0cuhn")
+}],
+"loop": true,
+"name": &"flight",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bq2pr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_41cdf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fiycp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ui6ce")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i8qti")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d1fd6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sgyfm")
+}],
+"loop": false,
+"name": &"morte",
+"speed": 5.0
+}]
+
+[node name="Helicoptero" type="Node2D"]
+script = ExtResource("1_qvjce")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 1.5
+autostart = true
+
+[node name="AtaqueComp" parent="." instance=ExtResource("1_avehm")]
+projetil = ExtResource("3_wggqa")
+
+[node name="VidaComp" parent="." instance=ExtResource("2_ygkf2")]
+light_mask = 2
+visibility_layer = 2
+
+[node name="HitboxComp" parent="." node_paths=PackedStringArray("Vida") instance=ExtResource("2_6qk0o")]
+collision_layer = 2
+collision_mask = 2
+Vida = NodePath("../VidaComp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComp"]
+light_mask = 2
+visibility_layer = 2
+shape = SubResource("RectangleShape2D_ja5y6")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_icg1f")
+animation = &"flight"
+autoplay = "flight"
+speed_scale = 3.0
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

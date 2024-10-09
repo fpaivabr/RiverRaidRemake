@@ -1,0 +1,169 @@
+[gd_scene load_steps=18 format=3 uid="uid://dwq3fv21ougd0"]
+
+[ext_resource type="Script" path="res://Projeteis/Jogador/Missel.gd" id="1_5f4dr"]
+[ext_resource type="PackedScene" uid="uid://ch5g7prg3kl8w" path="res://Componentes/Projeteis/ProjetilComponente.tscn" id="1_gbblt"]
+[ext_resource type="Script" path="res://Projeteis/Jogador/AnimacaoMissel.gd" id="4_4hwp5"]
+[ext_resource type="Texture2D" uid="uid://b0e88qnijlfa" path="res://Assets/Tailmap.png" id="4_gfyax"]
+[ext_resource type="AudioStream" uid="uid://cm20e4jkbyg3w" path="res://Assets/explosion.wav" id="5_k7uyh"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qjjvb"]
+radius = 7.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k3eki"]
+atlas = ExtResource("4_gfyax")
+region = Rect2(32, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bo5sr"]
+atlas = ExtResource("4_gfyax")
+region = Rect2(48, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eiebl"]
+atlas = ExtResource("4_gfyax")
+region = Rect2(64, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vyrl7"]
+atlas = ExtResource("4_gfyax")
+region = Rect2(80, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x8m3n"]
+atlas = ExtResource("4_gfyax")
+region = Rect2(96, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d2if6"]
+atlas = ExtResource("4_gfyax")
+region = Rect2(112, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pdpfo"]
+atlas = ExtResource("4_gfyax")
+region = Rect2(128, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pf8n1"]
+atlas = ExtResource("4_gfyax")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6mr68"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k3eki")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bo5sr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eiebl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vyrl7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x8m3n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d2if6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pdpfo")
+}],
+"loop": true,
+"name": &"Explosao",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pf8n1")
+}],
+"loop": false,
+"name": &"Missel",
+"speed": 5.0
+}]
+
+[sub_resource type="Animation" id="Animation_15f1j"]
+resource_name = "Missel"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CollisionShape2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(1.3, 2.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.4, 1.4)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Animacao")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"playMissel"
+}, {
+"args": [],
+"method": &"playExplosao"
+}]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Animacao:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1, 1.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 1), Vector2(1.7, 1.7)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_oecdn"]
+_data = {
+"Missel": SubResource("Animation_15f1j")
+}
+
+[node name="Missel" instance=ExtResource("1_gbblt")]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_5f4dr")
+volume = -10.0
+Velocidade = 50
+Dano = 3
+
+[node name="VisibleOnScreenNotifier2D" parent="." index="0"]
+position = Vector2(-7.7486e-07, 0.5)
+scale = Vector2(0.6, 0.55)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
+shape = SubResource("CircleShape2D_qjjvb")
+
+[node name="Animacao" type="AnimatedSprite2D" parent="." index="2"]
+sprite_frames = SubResource("SpriteFrames_6mr68")
+animation = &"Explosao"
+frame_progress = 0.302113
+script = ExtResource("4_4hwp5")
+
+[node name="ExplosaoTimer" type="Timer" parent="." index="3"]
+one_shot = true
+
+[node name="Desaparecer" type="Timer" parent="." index="4"]
+wait_time = 3.0
+
+[node name="AnimacaoPlayer" type="AnimationPlayer" parent="." index="5"]
+libraries = {
+"": SubResource("AnimationLibrary_oecdn")
+}
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." index="6"]
+stream = ExtResource("5_k7uyh")
+volume_db = -10.0
+bus = &"SFX"
+
+[connection signal="timeout" from="ExplosaoTimer" to="." method="_on_explosao_timer_timeout"]
+[connection signal="timeout" from="Desaparecer" to="." method="_on_desaparecer_timeout"]

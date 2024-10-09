@@ -1,0 +1,162 @@
+[gd_scene load_steps=4 format=3 uid="uid://bsyj5w0ukerys"]
+
+[ext_resource type="Script" path="res://UI/OpçõesMenu.gd" id="1_idu3m"]
+[ext_resource type="Script" path="res://UI/TabJogo.gd" id="2_c23sg"]
+[ext_resource type="Script" path="res://UI/TabHotkeys.gd" id="3_408k4"]
+
+[node name="OpçõesMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_idu3m")
+metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.447059, 0.537255, 0.623529, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="TabContainer" type="TabContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.04
+anchor_top = 0.1
+anchor_right = 0.96
+anchor_bottom = 0.9
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Jogo" type="Control" parent="TabContainer"]
+layout_mode = 2
+script = ExtResource("2_c23sg")
+
+[node name="Sair" type="Button" parent="TabContainer/Jogo"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.906033
+anchor_top = 0.871692
+anchor_right = 0.936603
+anchor_bottom = 0.871692
+offset_left = -13.536
+offset_top = -10.988
+offset_right = 13.464
+offset_bottom = 11.012
+theme_override_font_sizes/font_size = 12
+text = "Sair
+"
+metadata/_edit_use_anchors_ = true
+
+[node name="ValoresIniciais" type="VBoxContainer" parent="TabContainer/Jogo"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.013587
+anchor_top = 0.034188
+anchor_right = 0.981658
+anchor_bottom = 0.547009
+offset_right = 3.05176e-05
+metadata/_edit_use_anchors_ = true
+
+[node name="FaseInicial" type="HBoxContainer" parent="TabContainer/Jogo/ValoresIniciais"]
+layout_mode = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="TabContainer/Jogo/ValoresIniciais/FaseInicial"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Fase Inicial:"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Spacer" type="Control" parent="TabContainer/Jogo/ValoresIniciais/FaseInicial"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.66
+
+[node name="Level 1" type="Button" parent="TabContainer/Jogo/ValoresIniciais/FaseInicial"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 12
+text = "Level 1"
+metadata/_edit_use_anchors_ = true
+
+[node name="Level 2" type="Button" parent="TabContainer/Jogo/ValoresIniciais/FaseInicial"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 12
+text = "Level 2"
+metadata/_edit_use_anchors_ = true
+
+[node name="Level 3" type="Button" parent="TabContainer/Jogo/ValoresIniciais/FaseInicial"]
+clip_contents = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 12
+text = "Level 3"
+metadata/_edit_use_anchors_ = true
+
+[node name="VidasIniciais" type="HBoxContainer" parent="TabContainer/Jogo/ValoresIniciais"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TabContainer/Jogo/ValoresIniciais/VidasIniciais"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Vidas Iniciais:"
+
+[node name="Spacer" type="Control" parent="TabContainer/Jogo/ValoresIniciais/VidasIniciais"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.15
+
+[node name="VidaSlider" type="HSlider" parent="TabContainer/Jogo/ValoresIniciais/VidasIniciais"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+min_value = 1.0
+max_value = 9.0
+value = 1.0
+
+[node name="Hotkeys" type="Control" parent="TabContainer"]
+visible = false
+layout_mode = 2
+script = ExtResource("3_408k4")
+
+[node name="Painel" type="PanelContainer" parent="TabContainer/Hotkeys"]
+clip_contents = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Margin" type="MarginContainer" parent="TabContainer/Hotkeys/Painel"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Scroll" type="ScrollContainer" parent="TabContainer/Hotkeys/Painel/Margin"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBox" type="VBoxContainer" parent="TabContainer/Hotkeys/Painel/Margin/Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[connection signal="pressed" from="TabContainer/Jogo/Sair" to="." method="_on_sair_pressed"]
+[connection signal="pressed" from="TabContainer/Jogo/ValoresIniciais/FaseInicial/Level 1" to="TabContainer/Jogo" method="_on_level_1_pressed"]
+[connection signal="pressed" from="TabContainer/Jogo/ValoresIniciais/FaseInicial/Level 2" to="TabContainer/Jogo" method="_on_level_2_pressed"]
+[connection signal="pressed" from="TabContainer/Jogo/ValoresIniciais/FaseInicial/Level 3" to="TabContainer/Jogo" method="_on_level_3_pressed"]
+[connection signal="value_changed" from="TabContainer/Jogo/ValoresIniciais/VidasIniciais/VidaSlider" to="TabContainer/Jogo" method="_on_h_slider_value_changed"]

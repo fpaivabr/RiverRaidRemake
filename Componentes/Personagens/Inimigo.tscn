@@ -1,0 +1,28 @@
+[gd_scene load_steps=6 format=3 uid="uid://batrv0iuvdpcn"]
+
+[ext_resource type="Script" path="res://Componentes/Personagens/Inimigo.gd" id="1_i61n6"]
+[ext_resource type="Script" path="res://Componentes/Personagens/AtaqueComponente.gd" id="2_xn3dn"]
+[ext_resource type="Script" path="res://Componentes/Personagens/VidaComponente.gd" id="3_6h6yj"]
+[ext_resource type="Script" path="res://Componentes/Personagens/HurtboxComponente.gd" id="4_s4aak"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kpvig"]
+
+[node name="Inimigo" type="Node2D"]
+script = ExtResource("1_i61n6")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.7
+
+[node name="AtaqueComp" type="Node2D" parent="."]
+script = ExtResource("2_xn3dn")
+
+[node name="VidaComp" type="Node2D" parent="."]
+script = ExtResource("3_6h6yj")
+
+[node name="HitboxComp" type="Area2D" parent="."]
+script = ExtResource("4_s4aak")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComp"]
+shape = SubResource("RectangleShape2D_kpvig")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

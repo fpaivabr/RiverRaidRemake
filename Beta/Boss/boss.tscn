@@ -1,0 +1,186 @@
+[gd_scene load_steps=11 format=3 uid="uid://ol21iscsja34"]
+
+[ext_resource type="Script" path="res://Componentes/Personagens/VidaComponente.gd" id="1_7vqyn"]
+[ext_resource type="Script" path="res://Beta/Boss/CorpoBoss.gd" id="1_gibio"]
+[ext_resource type="Script" path="res://Beta/Boss/BossPart.gd" id="1_yupmt"]
+[ext_resource type="Script" path="res://Componentes/Personagens/HurtboxComponente.gd" id="2_84adu"]
+[ext_resource type="Script" path="res://Componentes/Personagens/AtaqueComponente.gd" id="4_qr5pe"]
+[ext_resource type="PackedScene" uid="uid://du8hjxphs8voh" path="res://Beta/Boss/AtaqueArmaBoss.tscn" id="5_2ws14"]
+[ext_resource type="Script" path="res://Beta/Boss/ControleBoss.gd" id="6_vg1xu"]
+[ext_resource type="Script" path="res://Beta/Boss/Mover1.gd" id="8_552pf"]
+
+[sub_resource type="Curve2D" id="Curve2D_e7sqr"]
+_data = {
+"points": PackedVector2Array(2.80983, 12.4569, -2.80983, -12.4569, 0, 0, -11.3555, 9.9465, 11.3555, -9.9465, 18, -55, -10.4678, -11.2095, 10.4678, 11.2095, 56, -51, 12.255, -5.66407, -12.255, 5.66407, 49, -16, 11.9415, 32.0274, -11.9415, -32.0274, 7, -37)
+}
+point_count = 5
+
+[sub_resource type="Curve2D" id="Curve2D_oxeem"]
+_data = {
+"points": PackedVector2Array(0, 0, 2, -12, 0, 0, 11.2973, 6.62159, -11.2973, -6.62159, -9, -52, 10.8919, -8.02698, -10.8919, 8.02698, -41, -51, -8.87833, -6.33786, 8.87833, 6.33786, -44, -15, -8.7704, 4.60818, 8.7704, -4.60818, -12, -12, -0.891741, 10.4456, 0.891741, -10.4456, -1, -37)
+}
+point_count = 6
+
+[node name="Boss" type="Node2D"]
+
+[node name="Corpo" type="Polygon2D" parent="."]
+position = Vector2(0.342533, 0.378408)
+scale = Vector2(2.317, 2)
+offset = Vector2(0, -24)
+polygon = PackedVector2Array(-4.26299, 67.3248, -7.6697, 62.0615, -8, 56, -9.20169, 52.8927, -11.6435, 53.2234, -13.8701, 52.3801, -14.8978, 50.495, -14.8189, 48.4361, -16, 48, -16, 40, -15.9292, 11.4461, -14.5659, 4.8331, -9.65741, 3.71149, -7.96762, -0.264505, -8, -8, 8, -8, 8.01992, 2.36362, 9.62234, 2.48326, 13.5805, 1.37501, 17.0738, 2.45272, 17.9657, 5.87169, 17.2213, 9.54007, 15.5198, 11.3599, 15.4442, 43.3883, 16.4848, 44.0572, 18.3429, 44.6518, 18.9004, 48.1079, 18.1571, 51.8985, 14.6321, 53.3046, 11.5122, 52.4209, 9.84651, 50.1909, 8, 56, 7.79153, 62.1628, 4.55952, 67.1224, 4.03542, 72, -3.91359, 72)
+script = ExtResource("1_gibio")
+
+[node name="Arma1" type="Polygon2D" parent="." node_paths=PackedStringArray("Corpo")]
+position = Vector2(34.1771, 48.8217)
+scale = Vector2(2, 2)
+color = Color(0, 0, 0, 1)
+offset = Vector2(-0.586521, -0.743893)
+polygon = PackedVector2Array(-2.40579, -2.24842, -3.3901, 0.783268, -2.44516, 4.24805, 0.625896, 4.77145, 3.85444, 4.01181, 4.65334, 0.743897, 3.89382, -2.36654, 0.744015, -3.22855)
+script = ExtResource("1_yupmt")
+Corpo = NodePath("../Corpo")
+
+[node name="Line2D" type="Line2D" parent="Arma1"]
+points = PackedVector2Array(-0.117599, -0.0821037, 7.15125, -0.0135155)
+width = 3.0
+default_color = Color(0.113725, 0.0705882, 1, 1)
+
+[node name="VidaArma" type="Node2D" parent="Arma1"]
+script = ExtResource("1_7vqyn")
+
+[node name="HitboxComp" type="Area2D" parent="Arma1" node_paths=PackedStringArray("Vida")]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("2_84adu")
+Vida = NodePath("../VidaArma")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Arma1/HitboxComp"]
+polygon = PackedVector2Array(0.0671787, 3.89588, -2.89383, 3.36555, -3.9103, 0.271959, -2.89383, -2.91002, 0.0229836, -3.97068, 3.20496, -3.17519, 3.55852, -1.62839, 7.00566, -1.45161, 7.13825, 1.42101, 3.73529, 1.4652, 3.29335, 3.27716)
+
+[node name="AtaqueComp" type="Node2D" parent="Arma1"]
+script = ExtResource("4_qr5pe")
+projetil = ExtResource("5_2ws14")
+
+[node name="Timer" type="Timer" parent="Arma1"]
+autostart = true
+
+[node name="Tip" type="Node2D" parent="Arma1"]
+position = Vector2(7.25273, -1.90735e-06)
+
+[node name="Arma2" type="Polygon2D" parent="." node_paths=PackedStringArray("Corpo")]
+position = Vector2(-25.1131, 48.8607)
+scale = Vector2(2, 2)
+color = Color(0, 0, 0, 1)
+offset = Vector2(-0.586521, -0.743893)
+polygon = PackedVector2Array(-2.40579, -2.24842, -3.3901, 0.783268, -2.44516, 4.24805, 0.625896, 4.77145, 3.85444, 4.01181, 4.65334, 0.743897, 3.89382, -2.36654, 0.744015, -3.22855)
+script = ExtResource("1_yupmt")
+Corpo = NodePath("../Corpo")
+
+[node name="Line2D" type="Line2D" parent="Arma2"]
+points = PackedVector2Array(-0.0431366, -0.139477, 7.85843, -0.15593)
+width = 3.0
+default_color = Color(0.113725, 0.0705882, 1, 1)
+
+[node name="VidaArma" type="Node2D" parent="Arma2"]
+script = ExtResource("1_7vqyn")
+
+[node name="HitboxComp" type="Area2D" parent="Arma2" node_paths=PackedStringArray("Vida")]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("2_84adu")
+Vida = NodePath("../VidaArma")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Arma2/HitboxComp"]
+polygon = PackedVector2Array(-3.02229, 3.22052, -3.93999, 0.175419, -3.064, -2.82797, 0.189671, -3.91253, 3.19306, -3.07825, 3.6102, -1.74341, 7.73986, -1.61827, 7.69815, 1.21826, 3.73534, 1.25998, 3.15135, 3.09538, 0.0645294, 3.88794)
+
+[node name="Timer" type="Timer" parent="Arma2"]
+wait_time = 1.5
+autostart = true
+
+[node name="Tip" type="Node2D" parent="Arma2"]
+position = Vector2(7.93596, -0.315336)
+
+[node name="AtaqueComp" type="Node2D" parent="Arma2"]
+script = ExtResource("4_qr5pe")
+projetil = ExtResource("5_2ws14")
+
+[node name="Arma3" type="Polygon2D" parent="." node_paths=PackedStringArray("Corpo")]
+position = Vector2(31.4348, -34.6729)
+scale = Vector2(2, 2)
+color = Color(0, 0, 0, 1)
+offset = Vector2(-0.586521, -0.743893)
+polygon = PackedVector2Array(-2.40579, -2.24842, -3.3901, 0.783268, -2.44516, 4.24805, 0.625896, 4.77145, 3.85444, 4.01181, 4.65334, 0.743897, 3.89382, -2.36654, 0.744015, -3.22855)
+script = ExtResource("1_yupmt")
+Corpo = NodePath("../Corpo")
+
+[node name="Line2D" type="Line2D" parent="Arma3"]
+position = Vector2(0.262779, 0.630672)
+points = PackedVector2Array(-0.200808, -0.651627, 8.69186, -0.638268)
+width = 3.0
+default_color = Color(0.113725, 0.0705882, 1, 1)
+
+[node name="VidaArma" type="Node2D" parent="Arma3"]
+script = ExtResource("1_7vqyn")
+
+[node name="HitboxComp" type="Area2D" parent="Arma3" node_paths=PackedStringArray("Vida")]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("2_84adu")
+Vida = NodePath("../VidaArma")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Arma3/HitboxComp"]
+polygon = PackedVector2Array(-2.94189, 3.38593, -3.86892, 0.24065, -3.00811, -2.87152, 0.137175, -3.9972, 3.18313, -3.10328, 3.77908, -1.41476, 8.87774, -1.48098, 9.01018, 1.39944, 3.67975, 1.39944, 3.28246, 3.18728, 0.00474167, 4.0481)
+
+[node name="Timer" type="Timer" parent="Arma3"]
+wait_time = 3.0
+autostart = true
+
+[node name="Tip" type="Node2D" parent="Arma3"]
+position = Vector2(9.09219, 0)
+
+[node name="AtaqueComp" type="Node2D" parent="Arma3"]
+script = ExtResource("4_qr5pe")
+projetil = ExtResource("5_2ws14")
+
+[node name="Controle" type="Polygon2D" parent="." node_paths=PackedStringArray("Corpo")]
+position = Vector2(-24.2387, -30.1007)
+color = Color(0.243137, 0.0509804, 0.45098, 1)
+offset = Vector2(24.2387, 30.1007)
+polygon = PackedVector2Array(-32.8213, -22.5054, -32.8213, -34.3495, -23.187, -34.6146, -23.0102, -38.5037, -13.9946, -38.327, -13.8178, -25.9526, -18.5908, -25.8642, -18.6792, -22.5054)
+script = ExtResource("6_vg1xu")
+Corpo = NodePath("../Corpo")
+
+[node name="VidaComp" type="Node2D" parent="Controle"]
+script = ExtResource("1_7vqyn")
+
+[node name="HitboxComp" type="Area2D" parent="Controle" node_paths=PackedStringArray("Vida")]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("2_84adu")
+Vida = NodePath("../VidaComp")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Controle/HitboxComp"]
+polygon = PackedVector2Array(-8.57825, -4.31296, -8.57825, 7.43577, 5.67613, 7.60282, 10.3533, 4.15058, 10.242, -8.15496, 1.27731, -8.37769)
+
+[node name="Timer" type="Timer" parent="Controle"]
+wait_time = 6.0
+autostart = true
+
+[node name="Path1" type="Path2D" parent="Controle"]
+position = Vector2(24.2387, 30.1007)
+curve = SubResource("Curve2D_e7sqr")
+
+[node name="Mover" type="PathFollow2D" parent="Controle/Path1"]
+rotates = false
+cubic_interp = false
+loop = false
+script = ExtResource("8_552pf")
+
+[node name="Path2" type="Path2D" parent="Controle"]
+position = Vector2(24.2387, 30.1007)
+curve = SubResource("Curve2D_oxeem")
+
+[node name="Mover2" type="PathFollow2D" parent="Controle/Path2"]
+rotates = false
+cubic_interp = false
+loop = false
+script = ExtResource("8_552pf")

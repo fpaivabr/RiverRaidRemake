@@ -1,0 +1,58 @@
+[gd_scene load_steps=11 format=3 uid="uid://46py5bnkltoi"]
+
+[ext_resource type="Texture2D" uid="uid://b0e88qnijlfa" path="res://Assets/Tailmap.png" id="2_i2fdt"]
+[ext_resource type="Script" path="res://Componentes/Personagens/Inimigo.gd" id="3_nm0si"]
+[ext_resource type="PackedScene" uid="uid://1iqtcsekf216" path="res://Componentes/Personagens/VidaComponente.tscn" id="3_qjkgb"]
+[ext_resource type="PackedScene" uid="uid://b34jet1tydsdr" path="res://Componentes/Personagens/AtaqueComponente.tscn" id="4_g3km2"]
+[ext_resource type="PackedScene" uid="uid://bkltef67bey07" path="res://Componentes/Personagens/HurtboxComponente.tscn" id="5_wguy6"]
+[ext_resource type="PackedScene" uid="uid://4y3jh3sujicm" path="res://Projeteis/Inimigos/AtaqueBarco.tscn" id="6_7n64l"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kdsti"]
+atlas = ExtResource("2_i2fdt")
+region = Rect2(208, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2wrig"]
+atlas = ExtResource("2_i2fdt")
+region = Rect2(224, 48, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_51ehw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kdsti")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2wrig")
+}],
+"loop": true,
+"name": &"default",
+"speed": 2.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6kmvy"]
+
+[node name="Barco" type="Node2D"]
+script = ExtResource("3_nm0si")
+fire_rate = 15.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_51ehw")
+frame_progress = 0.712119
+speed_scale = 3.0
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="VidaComp" parent="." instance=ExtResource("3_qjkgb")]
+
+[node name="AtaqueComp" parent="." instance=ExtResource("4_g3km2")]
+projetil = ExtResource("6_7n64l")
+
+[node name="HitboxComp" parent="." node_paths=PackedStringArray("Vida") instance=ExtResource("5_wguy6")]
+collision_layer = 2
+collision_mask = 2
+Vida = NodePath("../VidaComp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComp"]
+shape = SubResource("RectangleShape2D_6kmvy")
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

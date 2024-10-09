@@ -1,0 +1,59 @@
+[gd_scene load_steps=2 format=3 uid="uid://dcy1q5kpnuvuh"]
+
+[ext_resource type="Script" path="res://UI/TelaVitoria.gd" id="1_86suq"]
+
+[node name="TelaVitoria" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_86suq")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.447059, 0.537255, 0.623529, 1)
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.133
+anchor_right = 1.0
+anchor_bottom = 0.261
+offset_top = 0.0599995
+offset_bottom = 0.0200005
+grow_horizontal = 2
+grow_vertical = 2
+text = "Você Venceu"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Menu" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.497
+anchor_top = 0.719
+anchor_right = 0.497
+anchor_bottom = 0.719
+offset_left = -68.04
+offset_top = -0.419998
+offset_right = 71.96
+offset_bottom = 30.58
+text = "Menu Principal"
+
+[node name="Continuar" type="Button" parent="."]
+layout_mode = 0
+offset_left = 91.0
+offset_top = 90.0
+offset_right = 231.0
+offset_bottom = 121.0
+text = "Continuar"
+
+[connection signal="pressed" from="Menu" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Continuar" to="." method="_on_continuar_pressed"]

@@ -1,0 +1,131 @@
+[gd_scene load_steps=20 format=3 uid="uid://03foif8uffs2"]
+
+[ext_resource type="Script" path="res://Componentes/Personagens/Inimigo.gd" id="1_31uei"]
+[ext_resource type="PackedScene" uid="uid://b34jet1tydsdr" path="res://Componentes/Projeteis/AtaqueComponente.tscn" id="2_wk4o7"]
+[ext_resource type="PackedScene" uid="uid://djn80h0ew1tui" path="res://Projeteis/Inimigos/AtaqueHeli.tscn" id="3_ydpxc"]
+[ext_resource type="PackedScene" uid="uid://1iqtcsekf216" path="res://Componentes/Personagens/VidaComponente.tscn" id="4_3avdh"]
+[ext_resource type="PackedScene" uid="uid://bkltef67bey07" path="res://Componentes/Personagens/HurtboxComponente.tscn" id="5_v4f5x"]
+[ext_resource type="Texture2D" uid="uid://b83ghxm0u5bq2" path="res://Assets/sprite alien.png" id="6_2o7w2"]
+[ext_resource type="Texture2D" uid="uid://cgd8t3n6rxwhk" path="res://Assets/Tailmap.png" id="7_rcc20"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7v41x"]
+size = Vector2(19, 17)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fkt6o"]
+atlas = ExtResource("6_2o7w2")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_noags"]
+atlas = ExtResource("6_2o7w2")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lihdv"]
+atlas = ExtResource("6_2o7w2")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vb4cr"]
+atlas = ExtResource("7_rcc20")
+region = Rect2(32, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ctkl4"]
+atlas = ExtResource("7_rcc20")
+region = Rect2(48, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g8sv7"]
+atlas = ExtResource("7_rcc20")
+region = Rect2(64, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d07bp"]
+atlas = ExtResource("7_rcc20")
+region = Rect2(80, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fuqls"]
+atlas = ExtResource("7_rcc20")
+region = Rect2(96, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aiynf"]
+atlas = ExtResource("7_rcc20")
+region = Rect2(112, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k3hny"]
+atlas = ExtResource("7_rcc20")
+region = Rect2(128, 16, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_icg1f"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fkt6o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_noags")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lihdv")
+}],
+"loop": true,
+"name": &"default",
+"speed": 2.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vb4cr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ctkl4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g8sv7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d07bp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fuqls")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aiynf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k3hny")
+}],
+"loop": true,
+"name": &"morte",
+"speed": 5.0
+}]
+
+[node name="Alien" type="Node2D"]
+script = ExtResource("1_31uei")
+vida = 3
+velocidade = 0.12
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[node name="AtaqueComp" parent="." instance=ExtResource("2_wk4o7")]
+projetil = ExtResource("3_ydpxc")
+
+[node name="VidaComp" parent="." instance=ExtResource("4_3avdh")]
+light_mask = 2
+visibility_layer = 2
+VidaMaxima = 2
+
+[node name="HitboxComp" parent="." node_paths=PackedStringArray("Vida") instance=ExtResource("5_v4f5x")]
+position = Vector2(1.42109e-14, 0.787055)
+scale = Vector2(0.944235, 0.919538)
+collision_layer = 2
+collision_mask = 2
+Vida = NodePath("../VidaComp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComp"]
+light_mask = 2
+visibility_layer = 2
+position = Vector2(-0.5, -0.5)
+shape = SubResource("RectangleShape2D_7v41x")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_icg1f")
+speed_scale = 3.0
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

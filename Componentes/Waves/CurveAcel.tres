@@ -1,0 +1,7 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://dmqt6chj47yik"]
+
+[ext_resource type="Script" path="res://Componentes/Waves/CurveAcel.gd" id="1_g42nf"]
+
+[resource]
+script = ExtResource("1_g42nf")
+posi = null

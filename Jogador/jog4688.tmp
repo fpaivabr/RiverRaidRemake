@@ -1,0 +1,165 @@
+[gd_scene load_steps=22 format=3 uid="uid://cc5cjso4rewoc"]
+
+[ext_resource type="Script" path="res://Jogador/jogador.gd" id="1_5cmx2"]
+[ext_resource type="Texture2D" uid="uid://clk5ubahrsbd5" path="res://Assets/Nave-teste.png" id="1_5pu6w"]
+[ext_resource type="PackedScene" uid="uid://1iqtcsekf216" path="res://Componentes/Personagens/VidaComponente.tscn" id="2_8u40v"]
+[ext_resource type="Texture2D" uid="uid://b83ghxm0u5bq2" path="res://Assets/sprite alien.png" id="3_dbr1l"]
+[ext_resource type="PackedScene" uid="uid://bkltef67bey07" path="res://Componentes/Personagens/HurtboxComponente.tscn" id="3_fhkuy"]
+[ext_resource type="Script" path="res://PowerUps/PowerUpComponente.gd" id="4_uli4u"]
+[ext_resource type="Texture2D" uid="uid://juegn6or138" path="res://icon.svg" id="9_ic1pu"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6tdck"]
+atlas = ExtResource("1_5pu6w")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f23nl"]
+atlas = ExtResource("1_5pu6w")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qsr3x"]
+atlas = ExtResource("1_5pu6w")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0be7w"]
+atlas = ExtResource("1_5pu6w")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hoag0"]
+atlas = ExtResource("3_dbr1l")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p38xs"]
+atlas = ExtResource("3_dbr1l")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w84oj"]
+atlas = ExtResource("3_dbr1l")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_nqx4h"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6tdck")
+}],
+"loop": true,
+"name": &"direita",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f23nl")
+}],
+"loop": true,
+"name": &"esquerda",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qsr3x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0be7w")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hoag0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p38xs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w84oj")
+}],
+"loop": true,
+"name": &"morte",
+"speed": 3.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tnthg"]
+size = Vector2(32, 28)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rfkgr"]
+atlas = ExtResource("9_ic1pu")
+region = Rect2(32, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w3di1"]
+atlas = ExtResource("9_ic1pu")
+region = Rect2(64, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2j5dq"]
+atlas = ExtResource("9_ic1pu")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tm32x"]
+atlas = ExtResource("9_ic1pu")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hbdgn"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rfkgr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w3di1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2j5dq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tm32x")
+}],
+"loop": true,
+"name": &"escudo",
+"speed": 5.0
+}]
+
+[node name="Jogador" type="CharacterBody2D"]
+scale = Vector2(0.5, 0.5)
+motion_mode = 1
+script = ExtResource("1_5cmx2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[node name="AtaqueDelay" type="Timer" parent="."]
+wait_time = 0.1
+
+[node name="PowerUpDelay" type="Timer" parent="."]
+wait_time = 0.1
+
+[node name="Animacao" type="AnimatedSprite2D" parent="."]
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_nqx4h")
+animation = &"idle"
+
+[node name="PowerUpComponente" type="Node2D" parent="."]
+script = ExtResource("4_uli4u")
+
+[node name="VidaComponente" parent="." instance=ExtResource("2_8u40v")]
+
+[node name="HurtboxComponente" parent="." node_paths=PackedStringArray("Vida") instance=ExtResource("3_fhkuy")]
+Vida = NodePath("../VidaComponente")
+
+[node name="Hurtbox2D" type="CollisionShape2D" parent="HurtboxComponente"]
+position = Vector2(0, -2)
+shape = SubResource("RectangleShape2D_tnthg")
+
+[node name="escudo" type="AnimatedSprite2D" parent="."]
+visible = false
+modulate = Color(1, 1, 1, 0.317647)
+show_behind_parent = true
+position = Vector2(0, -1)
+scale = Vector2(1, 0.9375)
+sprite_frames = SubResource("SpriteFrames_hbdgn")
+animation = &"escudo"
+frame = 1
+frame_progress = 0.569773
+
+[connection signal="timeout" from="AtaqueDelay" to="." method="_on_ataque_delay_timeout"]
+[connection signal="timeout" from="PowerUpDelay" to="." method="_on_power_up_delay_timeout"]
+[connection signal="animation_finished" from="Animacao" to="VidaComponente" method="_on_animação_animation_finished"]

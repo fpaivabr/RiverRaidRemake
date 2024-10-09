@@ -1,0 +1,33 @@
+[gd_scene load_steps=6 format=3 uid="uid://clqgygly12ajw"]
+
+[ext_resource type="Script" path="res://Beta/Boss/TesteBoss.gd" id="1_vm2gw"]
+[ext_resource type="PackedScene" uid="uid://cc5cjso4rewoc" path="res://Jogador/jogador.tscn" id="2_u2p54"]
+[ext_resource type="PackedScene" uid="uid://ol21iscsja34" path="res://Beta/Boss/boss.tscn" id="3_mjftx"]
+[ext_resource type="Script" path="res://Beta/Boss/BossMover.gd" id="3_q35ni"]
+
+[sub_resource type="Curve2D" id="Curve2D_xetdb"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 96, 18, 0, 0, 0, 0, 131, 24, 0, 0, 0, 0, 167, 65, 0, 0, 0, 0, 203, 24, 0, 0, 0, 0, 236, 15)
+}
+point_count = 5
+
+[node name="TesteBoss" type="Node2D" node_paths=PackedStringArray("Jogador1")]
+script = ExtResource("1_vm2gw")
+Jogador1 = NodePath("Jogador")
+
+[node name="Jogador" parent="." instance=ExtResource("2_u2p54")]
+position = Vector2(162, 166)
+
+[node name="Path2D" type="Path2D" parent="."]
+position = Vector2(-9, 0)
+curve = SubResource("Curve2D_xetdb")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
+position = Vector2(168.498, 63.2949)
+progress = 92.3483
+rotates = false
+loop = false
+script = ExtResource("3_q35ni")
+
+[node name="Boss" parent="Path2D/PathFollow2D" instance=ExtResource("3_mjftx")]
+position = Vector2(-2.21953, 2.99852)

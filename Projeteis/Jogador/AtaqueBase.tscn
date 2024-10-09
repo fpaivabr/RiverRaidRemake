@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=3 uid="uid://gqi0hrxjam48"]
+
+[ext_resource type="PackedScene" uid="uid://ch5g7prg3kl8w" path="res://Componentes/Projeteis/ProjetilComponente.tscn" id="1_f7a7e"]
+[ext_resource type="Script" path="res://Projeteis/Jogador/AtaqueBase.gd" id="2_ylxrl"]
+[ext_resource type="Texture2D" uid="uid://d1301q5sk7137" path="res://Assets/Tiroaviao.png" id="3_w22lk"]
+[ext_resource type="AudioStream" uid="uid://0d6vn11442si" path="res://Assets/audio/sound.wav" id="4_5rmyx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d7q0j"]
+size = Vector2(6, 6)
+
+[node name="TipoBala" instance=ExtResource("1_f7a7e")]
+position = Vector2(0, -1)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("2_ylxrl")
+volume = -2.5
+rotacao = 0.0
+Velocidade = 240
+
+[node name="VisibleOnScreenNotifier2D" parent="." index="0"]
+position = Vector2(-2.98023e-07, 1.49012e-07)
+scale = Vector2(0.3, 0.3)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
+shape = SubResource("RectangleShape2D_d7q0j")
+
+[node name="Sprite2D" type="Sprite2D" parent="." index="2"]
+position = Vector2(1, 1)
+scale = Vector2(0.985, 0.985)
+texture = ExtResource("3_w22lk")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." index="3"]
+stream = ExtResource("4_5rmyx")
+volume_db = -6.83
+bus = &"SFX"

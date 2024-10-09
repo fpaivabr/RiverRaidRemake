@@ -1,0 +1,105 @@
+[gd_scene load_steps=12 format=3 uid="uid://csgheeiow73if"]
+
+[ext_resource type="PackedScene" uid="uid://mt8ip7j3xp8f" path="res://Componentes/Levels/Level.tscn" id="1_63noi"]
+[ext_resource type="Script" path="res://Beta/DebugTools/TesteLevelTemplate.gd" id="2_4ym8p"]
+[ext_resource type="PackedScene" uid="uid://cc5cjso4rewoc" path="res://Jogador/jogador.tscn" id="3_nrulj"]
+[ext_resource type="Script" path="res://Beta/DebugTools/DebugMenu.gd" id="3_p2fbp"]
+[ext_resource type="Texture2D" uid="uid://kofslmmwwm8k" path="res://Assets/pixel-16x32.png" id="4_v206s"]
+[ext_resource type="Script" path="res://Componentes/Levels/Mundo.gd" id="5_6vgek"]
+[ext_resource type="Script" path="res://Beta/DebugTools/DebugMover.gd" id="7_mwgx3"]
+
+[sub_resource type="TileMapPattern" id="TileMapPattern_0siec"]
+tile_data = PackedInt32Array(0, 0, 0, 65536, 0, 0, 655360, 0, 0, 720896, 0, 0, 1, 0, 0, 720897, 0, 0, 327689, 0, 1, 393225, 0, 1, 327690, 0, 1, 393226, 0, 1, 18, 0, 0, 720914, 0, 0, 19, 0, 0, 65555, 0, 0, 655379, 0, 0, 720915, 0, 0)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_mf7y3"]
+texture = ExtResource("4_v206s")
+0:0/0 = 0
+0:1/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_wppkp"]
+sources/0 = SubResource("TileSetAtlasSource_mf7y3")
+pattern_0 = SubResource("TileMapPattern_0siec")
+
+[sub_resource type="Curve2D" id="Curve2D_or15g"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -16, 20, 0, 0, 0, 0, 336, 20)
+}
+point_count = 2
+
+[node name="TesteLevel" node_paths=PackedStringArray("SpawnLocation", "MundoDaFase", "Jogador1") instance=ExtResource("1_63noi")]
+script = ExtResource("2_4ym8p")
+IngameDebug = true
+JogadorHitBox = true
+JogadorVida = 1
+JogadorSpeed = 200.0
+PowerUpAtual = 0
+SpawnLocation = NodePath("Path2D/PathFollow2D")
+MundoDaFase = NodePath("Mundo")
+Jogador1 = NodePath("Jogador")
+
+[node name="DebugMenu" type="Control" parent="Pause" index="1" node_paths=PackedStringArray("Fase")]
+process_mode = 2
+visible = false
+z_index = 1
+anchors_preset = 0
+offset_right = 320.0
+offset_bottom = 180.0
+script = ExtResource("3_p2fbp")
+Fase = NodePath("../..")
+
+[node name="ColorRect" type="ColorRect" parent="Pause/DebugMenu" index="0"]
+layout_mode = 0
+offset_right = 320.0
+offset_bottom = 180.0
+color = Color(0.447059, 0.537255, 0.623529, 1)
+
+[node name="Vbox" type="VBoxContainer" parent="Pause/DebugMenu" index="1"]
+layout_mode = 0
+offset_left = 120.0
+offset_top = 54.0
+offset_right = 200.0
+offset_bottom = 159.0
+
+[node name="SA" type="Button" parent="Pause/DebugMenu/Vbox" index="0"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Spawn Avião"
+
+[node name="SH" type="Button" parent="Pause/DebugMenu/Vbox" index="1"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Spawn heli"
+
+[node name="Voltar" type="Button" parent="Pause/DebugMenu/Vbox" index="2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Voltar"
+
+[node name="Sair" type="Button" parent="Pause/DebugMenu/Vbox" index="3"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Sair"
+
+[node name="Mundo" type="TileMap" parent="." index="1"]
+tile_set = SubResource("TileSet_wppkp")
+format = 2
+layer_0/tile_data = PackedInt32Array(655360, 0, 0, 720896, 0, 0, 720897, 0, 0, 0, 0, 0, 65536, 0, 0, 1, 0, 0, 19, 0, 0, 18, 0, 0, 65555, 0, 0, 655379, 0, 0, 720915, 0, 0, 720914, 0, 0, 327689, 0, 1, 393225, 0, 1, 393226, 0, 1, 327690, 0, 1)
+script = ExtResource("5_6vgek")
+GeracaoDeChunk = 1
+TamanhoDoMundo = 99
+
+[node name="Jogador" parent="." index="2" instance=ExtResource("3_nrulj")]
+position = Vector2(160, 160)
+
+[node name="Path2D" type="Path2D" parent="." index="3"]
+curve = SubResource("Curve2D_or15g")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D" index="0"]
+position = Vector2(-16, 20)
+loop = false
+script = ExtResource("7_mwgx3")
+
+[connection signal="pressed" from="Pause/DebugMenu/Vbox/SA" to="Pause/DebugMenu" method="_on_sa_pressed"]
+[connection signal="pressed" from="Pause/DebugMenu/Vbox/SH" to="Pause/DebugMenu" method="_on_sh_pressed"]
+[connection signal="pressed" from="Pause/DebugMenu/Vbox/Voltar" to="Pause/DebugMenu" method="_on_voltar_pressed"]
+[connection signal="pressed" from="Pause/DebugMenu/Vbox/Sair" to="Pause/DebugMenu" method="_on_sair_pressed"]

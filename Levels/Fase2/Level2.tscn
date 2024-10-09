@@ -1,0 +1,179 @@
+[gd_scene load_steps=23 format=3 uid="uid://t17kpslaf8cy"]
+
+[ext_resource type="PackedScene" uid="uid://mt8ip7j3xp8f" path="res://Componentes/Levels/Level.tscn" id="1_vmkk8"]
+[ext_resource type="PackedScene" uid="uid://cc5cjso4rewoc" path="res://Jogador/jogador.tscn" id="2_xiytk"]
+[ext_resource type="PackedScene" uid="uid://kcogo61fxevo" path="res://UI/UIJogador.tscn" id="3_v8ao4"]
+[ext_resource type="PackedScene" uid="uid://b237iuhhalnvm" path="res://Componentes/Waves/WavesControle.tscn" id="4_ggv61"]
+[ext_resource type="Script" path="res://Componentes/Levels/Mundo.gd" id="5_8kjpm"]
+
+[sub_resource type="TileSet" id="TileSet_qqnh1"]
+
+[sub_resource type="Curve2D" id="Curve2D_74rk1"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -16, 80, -45, -2.5, 45, 2.5, 85, 35, -16, -8, 16, 8, 130, 75, 0, 0, 0, 0, 150, -16)
+}
+point_count = 4
+
+[sub_resource type="Curve2D" id="Curve2D_cxuy7"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 16, 80, 45, 2.5, -45, -2.5, -85, 35, 16, 8, -16, -8, -130, 75, 0, 0, 0, 0, -150, -16)
+}
+point_count = 4
+
+[sub_resource type="Curve2D" id="Curve2D_6ogpj"]
+_data = {
+"points": PackedVector2Array(-45, 4.5, 0, 0, -15, 50, -49, 15, 49, -15, 90, 85, 0, 0, 0, 0, 160, -16)
+}
+point_count = 3
+
+[sub_resource type="Curve2D" id="Curve2D_ciumc"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 15, 50, 49, 15, -49, -15, -90, 85, 0, 0, 0, 0, -160, -16)
+}
+point_count = 3
+
+[sub_resource type="Curve2D" id="Curve2D_dncy3"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -20, 20, -19, 28, 19, -28, 20, 40, -24, -29, 24, 29, 82, 57, -6.5, 30, 6.5, -30, 130, 35, 0, 0, 0, 0, 130, -20)
+}
+point_count = 5
+
+[sub_resource type="Curve2D" id="Curve2D_ckv6r"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 20, 20, 19, 28, -19, -28, -20, 40, 24, -29, -24, 29, -82.5, 57.5, 6.5, 30, -6.5, -30, -130, 35, 0, 0, 0, 0, -130, -20)
+}
+point_count = 5
+
+[sub_resource type="Curve2D" id="Curve2D_jd1rs"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -16, 62, -42, -13, 42, 13, 55, 90, -12, 35, 12, -35, 132, 37, 0, 0, 0, 0, 143, -20)
+}
+point_count = 4
+
+[sub_resource type="Curve2D" id="Curve2D_sgprp"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 16, 62, 42, -13, -42, 13, -55, 90, 12, 35, -12, -35, -132, 37, 0, 0, 0, 0, -143, -20)
+}
+point_count = 4
+
+[sub_resource type="Curve2D" id="Curve2D_8remd"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 300, -16, 0, 0, 0, 0, 300, 216)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_p7850"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 260, -16, 0, 0, 0, 0, 260, 216)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_epcjs"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 220, -16, 0, 0, 0, 0, 220, 216)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_hclpy"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 180, -16, 0, 0, 0, 0, 180, 216)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_wsm85"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 140, -16, 0, 0, 0, 0, 140, 216)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_i56yo"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 100, -16, 0, 0, 0, 0, 100, 216)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_lvu44"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 60, -16, 0, 0, 0, 0, 60, 216)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_vk14r"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 20, -16, 0, 0, 0, 0, 20, 216)
+}
+point_count = 2
+
+[node name="Level" instance=ExtResource("1_vmkk8")]
+
+[node name="Mundo" type="TileMap" parent="." index="1"]
+tile_set = SubResource("TileSet_qqnh1")
+format = 2
+script = ExtResource("5_8kjpm")
+
+[node name="UiJogador" parent="." index="2" instance=ExtResource("3_v8ao4")]
+offset_left = 94.0
+offset_top = 168.0
+offset_right = 94.0
+offset_bottom = 168.08
+
+[node name="Jogador" parent="." index="3" instance=ExtResource("2_xiytk")]
+position = Vector2(159, 158)
+
+[node name="Waves" parent="." index="4" instance=ExtResource("4_ggv61")]
+
+[node name="Paths" type="Node2D" parent="." index="5"]
+
+[node name="Path1" type="Path2D" parent="Paths" index="0"]
+curve = SubResource("Curve2D_74rk1")
+
+[node name="Path2" type="Path2D" parent="Paths" index="1"]
+position = Vector2(320, 0)
+curve = SubResource("Curve2D_cxuy7")
+
+[node name="Path3" type="Path2D" parent="Paths" index="2"]
+curve = SubResource("Curve2D_6ogpj")
+
+[node name="Path4" type="Path2D" parent="Paths" index="3"]
+position = Vector2(320, 0)
+curve = SubResource("Curve2D_ciumc")
+
+[node name="Path5" type="Path2D" parent="Paths" index="4"]
+curve = SubResource("Curve2D_dncy3")
+
+[node name="Path6" type="Path2D" parent="Paths" index="5"]
+position = Vector2(320, 0)
+curve = SubResource("Curve2D_ckv6r")
+
+[node name="Path7" type="Path2D" parent="Paths" index="6"]
+curve = SubResource("Curve2D_jd1rs")
+
+[node name="Path8" type="Path2D" parent="Paths" index="7"]
+position = Vector2(320, 0)
+curve = SubResource("Curve2D_sgprp")
+
+[node name="MisseisPath" type="Node2D" parent="." index="6"]
+
+[node name="Path1" type="Path2D" parent="MisseisPath" index="0"]
+curve = SubResource("Curve2D_8remd")
+
+[node name="Path2" type="Path2D" parent="MisseisPath" index="1"]
+curve = SubResource("Curve2D_p7850")
+
+[node name="Path3" type="Path2D" parent="MisseisPath" index="2"]
+curve = SubResource("Curve2D_epcjs")
+
+[node name="Path4" type="Path2D" parent="MisseisPath" index="3"]
+curve = SubResource("Curve2D_hclpy")
+
+[node name="Path5" type="Path2D" parent="MisseisPath" index="4"]
+curve = SubResource("Curve2D_wsm85")
+
+[node name="Path6" type="Path2D" parent="MisseisPath" index="5"]
+curve = SubResource("Curve2D_i56yo")
+
+[node name="Path7" type="Path2D" parent="MisseisPath" index="6"]
+curve = SubResource("Curve2D_lvu44")
+
+[node name="Path8" type="Path2D" parent="MisseisPath" index="7"]
+curve = SubResource("Curve2D_vk14r")

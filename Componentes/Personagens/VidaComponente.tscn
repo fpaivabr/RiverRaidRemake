@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://1iqtcsekf216"]
+
+[ext_resource type="Script" path="res://Componentes/Personagens/VidaComponente.gd" id="1_xfjo5"]
+
+[node name="VidaComponente" type="Node2D"]
+script = ExtResource("1_xfjo5")

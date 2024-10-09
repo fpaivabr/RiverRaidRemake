@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://mt8ip7j3xp8f"]
+
+[ext_resource type="Script" path="res://Componentes/Levels/Level.gd" id="1_ptwi5"]
+[ext_resource type="PackedScene" uid="uid://dqalirl8veijf" path="res://UI/PauseMenu.tscn" id="2_iho66"]
+
+[node name="Level" type="Node2D"]
+script = ExtResource("1_ptwi5")
+
+[node name="Pause" type="Control" parent="."]
+process_mode = 2
+layout_mode = 3
+anchors_preset = 0
+offset_right = 320.0
+offset_bottom = 180.0
+
+[node name="PauseMenu" parent="Pause" instance=ExtResource("2_iho66")]
+visible = false
+z_index = 1
+layout_mode = 1

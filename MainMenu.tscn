@@ -1,0 +1,81 @@
+[gd_scene load_steps=2 format=3 uid="uid://t0pt1c06epwp"]
+
+[ext_resource type="Script" path="res://MainMenu.gd" id="1_5vbq7"]
+
+[node name="Menu" type="Control"]
+process_mode = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_5vbq7")
+metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.447059, 0.537255, 0.623529, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.16875
+anchor_right = 1.0
+anchor_bottom = 0.297
+offset_bottom = -10.1475
+text = "River N Raider"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.689
+anchor_right = 0.5
+anchor_bottom = 0.689
+offset_left = -40.0
+offset_top = -37.02
+offset_right = 40.0
+offset_bottom = 36.98
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+focus_neighbor_top = NodePath("../SButton")
+focus_neighbor_bottom = NodePath("../OpButton")
+focus_next = NodePath("../OpButton")
+focus_previous = NodePath("../SButton")
+theme_override_font_sizes/font_size = 12
+text = "Jogar"
+
+[node name="OpButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+focus_neighbor_top = NodePath("../PButton")
+focus_neighbor_bottom = NodePath("../SButton")
+focus_next = NodePath("../SButton")
+focus_previous = NodePath("../PButton")
+theme_override_font_sizes/font_size = 10
+text = "Opções"
+
+[node name="SButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+focus_neighbor_top = NodePath("../OpButton")
+focus_neighbor_bottom = NodePath("../PButton")
+focus_next = NodePath("../PButton")
+focus_previous = NodePath("../OpButton")
+theme_override_font_sizes/font_size = 10
+text = "Sair"
+
+[connection signal="pressed" from="VBoxContainer/PButton" to="." method="_on_p_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/OpButton" to="." method="_on_op_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/SButton" to="." method="_on_s_button_pressed"]

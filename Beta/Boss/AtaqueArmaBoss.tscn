@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://du8hjxphs8voh"]
+
+[ext_resource type="PackedScene" uid="uid://ch5g7prg3kl8w" path="res://Componentes/Projeteis/ProjetilComponente.tscn" id="1_h6h67"]
+[ext_resource type="Script" path="res://Beta/Boss/AtaqueArmaBoss.gd" id="2_fn8qk"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_kjfux"]
+size = Vector2(2, 2)
+
+[node name="TipoBala" instance=ExtResource("1_h6h67")]
+script = ExtResource("2_fn8qk")
+
+[node name="Sprite2D" type="Sprite2D" parent="." index="1"]
+texture = SubResource("PlaceholderTexture2D_kjfux")

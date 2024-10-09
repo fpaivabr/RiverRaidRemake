@@ -1,0 +1,51 @@
+[gd_scene load_steps=4 format=3 uid="uid://kcogo61fxevo"]
+
+[ext_resource type="PackedScene" uid="uid://cubr21em4i3dq" path="res://UI/BarraEnergia.tscn" id="1_ixtcx"]
+[ext_resource type="Script" path="res://UI/UIJogador.gd" id="1_y1fqq"]
+[ext_resource type="Texture2D" uid="uid://jvfrras168ue" path="res://Assets/LaserIcon.png" id="3_4yj7f"]
+
+[node name="UiJogador" type="Control"]
+layout_mode = 3
+anchor_right = 0.541
+anchor_bottom = 0.244
+offset_right = -0.119995
+offset_bottom = 0.079998
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_y1fqq")
+
+[node name="BarraEnergia" parent="." instance=ExtResource("1_ixtcx")]
+layout_mode = 1
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_right = 47.0
+offset_bottom = 12.0
+grow_horizontal = 1
+grow_vertical = 1
+
+[node name="Pontuacao" type="Label" parent="."]
+layout_mode = 0
+offset_left = 61.0
+offset_top = -2.0
+offset_right = 113.0
+offset_bottom = 21.0
+scale = Vector2(0.5, 0.5)
+text = "Score: "
+
+[node name="Vidas" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+offset_left = 114.0
+offset_top = -2.0
+offset_right = 159.0
+offset_bottom = 21.0
+scale = Vector2(0.5, 0.5)
+text = "Vidas:"
+
+[node name="PowerUp" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 49.0
+offset_right = 59.0
+offset_bottom = 12.0
+texture = ExtResource("3_4yj7f")

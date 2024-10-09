@@ -1,0 +1,47 @@
+[gd_scene load_steps=7 format=3 uid="uid://baamhoo0kwulf"]
+
+[ext_resource type="PackedScene" uid="uid://ch5g7prg3kl8w" path="res://Componentes/Projeteis/ProjetilComponente.tscn" id="1_bm4aa"]
+[ext_resource type="Script" path="res://Projeteis/Inimigos/AtaqueAviao.gd" id="1_rwqg8"]
+[ext_resource type="Script" path="res://Projeteis/Inimigos/AtaqueAviaoC.gd" id="1_vv4cg"]
+[ext_resource type="Texture2D" uid="uid://d1301q5sk7137" path="res://Assets/Tiroaviao.png" id="2_24xxm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ujj4r"]
+size = Vector2(4, 6)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ovlyf"]
+size = Vector2(4, 6)
+
+[node name="Node2D" type="Area2D"]
+script = ExtResource("1_vv4cg")
+
+[node name="TipoBala" parent="." instance=ExtResource("1_bm4aa")]
+position = Vector2(-2, 0)
+rotation = -2.61799
+script = ExtResource("1_rwqg8")
+rotacao = 30.0
+
+[node name="Sprite2D" type="Sprite2D" parent="TipoBala"]
+position = Vector2(1, 1)
+texture = ExtResource("2_24xxm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TipoBala"]
+shape = SubResource("RectangleShape2D_ujj4r")
+
+[node name="TipoBala2" parent="." instance=ExtResource("1_bm4aa")]
+position = Vector2(2, 0)
+rotation = 2.61799
+script = ExtResource("1_rwqg8")
+rotacao = -30.0
+
+[node name="Sprite2D" type="Sprite2D" parent="TipoBala2"]
+position = Vector2(1, 1)
+texture = ExtResource("2_24xxm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TipoBala2"]
+shape = SubResource("RectangleShape2D_ovlyf")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 4.0
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

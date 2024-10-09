@@ -1,0 +1,122 @@
+[gd_scene load_steps=18 format=3 uid="uid://c557dfqq50nkn"]
+
+[ext_resource type="Script" path="res://Componentes/Personagens/Inimigo.gd" id="1_8tukc"]
+[ext_resource type="Script" path="res://Componentes/Personagens/AtaqueComponente.gd" id="2_uqcgm"]
+[ext_resource type="Script" path="res://Componentes/Personagens/VidaComponente.gd" id="3_bdsys"]
+[ext_resource type="PackedScene" uid="uid://baamhoo0kwulf" path="res://Projeteis/Inimigos/AtaqueAviao.tscn" id="3_okpfh"]
+[ext_resource type="Script" path="res://Componentes/Personagens/HurtboxComponente.gd" id="4_o0thc"]
+[ext_resource type="Texture2D" uid="uid://b0e88qnijlfa" path="res://Assets/Tailmap.png" id="5_tipyo"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hpbe3"]
+size = Vector2(14, 11)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u5jxj"]
+atlas = ExtResource("5_tipyo")
+region = Rect2(208, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vh4bk"]
+atlas = ExtResource("5_tipyo")
+region = Rect2(224, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_btdkj"]
+atlas = ExtResource("5_tipyo")
+region = Rect2(32, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3ontf"]
+atlas = ExtResource("5_tipyo")
+region = Rect2(48, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q7x3h"]
+atlas = ExtResource("5_tipyo")
+region = Rect2(64, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_24yxx"]
+atlas = ExtResource("5_tipyo")
+region = Rect2(80, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_28o5g"]
+atlas = ExtResource("5_tipyo")
+region = Rect2(96, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_38ego"]
+atlas = ExtResource("5_tipyo")
+region = Rect2(112, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dx0nw"]
+atlas = ExtResource("5_tipyo")
+region = Rect2(128, 16, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_twowa"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u5jxj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vh4bk")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_btdkj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3ontf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q7x3h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_24yxx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_28o5g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_38ego")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dx0nw")
+}],
+"loop": false,
+"name": &"morte",
+"speed": 3.0
+}]
+
+[node name="Aviao" type="Node2D"]
+script = ExtResource("1_8tukc")
+vida = 2
+dano_colisao = 0
+fire_rate = 0.8
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="AtaqueComp" type="Node2D" parent="."]
+script = ExtResource("2_uqcgm")
+projetil = ExtResource("3_okpfh")
+
+[node name="VidaComp" type="Node2D" parent="."]
+script = ExtResource("3_bdsys")
+VidaMaxima = 2
+
+[node name="HitboxComp" type="Area2D" parent="." node_paths=PackedStringArray("Vida")]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("4_o0thc")
+Vida = NodePath("../VidaComp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComp"]
+position = Vector2(0, -1.5)
+shape = SubResource("RectangleShape2D_hpbe3")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+rotation = 3.14159
+sprite_frames = SubResource("SpriteFrames_twowa")
+frame_progress = 0.584528
+speed_scale = 3.0
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

@@ -1,0 +1,57 @@
+[gd_scene load_steps=3 format=3 uid="uid://cy0phxx10y1ks"]
+
+[ext_resource type="Script" path="res://Projeteis/Jogador/TiroMultiDirecional.gd" id="1_awchd"]
+[ext_resource type="PackedScene" uid="uid://gqi0hrxjam48" path="res://Projeteis/Jogador/AtaqueBase.tscn" id="2_evca5"]
+
+[node name="ProjetilComp" type="Area2D"]
+script = ExtResource("1_awchd")
+
+[node name="TipoBala6" parent="." instance=ExtResource("2_evca5")]
+position = Vector2(-13, 2)
+rotation = -0.785397
+scale = Vector2(1, 1)
+volume = -5.0
+rotacao = -45.0
+
+[node name="TipoBala2" parent="." instance=ExtResource("2_evca5")]
+position = Vector2(10, 8)
+rotation = 1.57079
+volume = -5.0
+rotacao = 90.0
+
+[node name="TipoBala7" parent="." instance=ExtResource("2_evca5")]
+position = Vector2(13, 2)
+rotation = 0.785397
+volume = -5.0
+rotacao = 45.0
+
+[node name="TipoBala4" parent="." instance=ExtResource("2_evca5")]
+position = Vector2(9, -2)
+rotation = 0.785397
+volume = -5.0
+rotacao = 45.0
+
+[node name="TipoBala5" parent="." instance=ExtResource("2_evca5")]
+position = Vector2(-9, -2)
+rotation = -0.785397
+volume = -5.0
+rotacao = -45.0
+
+[node name="TipoBala8" parent="." instance=ExtResource("2_evca5")]
+position = Vector2(3, -2)
+volume = -5.0
+
+[node name="TipoBala" parent="." instance=ExtResource("2_evca5")]
+position = Vector2(-3, -2)
+volume = -5.0
+
+[node name="TipoBala3" parent="." instance=ExtResource("2_evca5")]
+position = Vector2(-10, 8)
+rotation = -1.57079
+volume = -5.0
+rotacao = -90.0
+
+[node name="Desaparecer" type="Timer" parent="."]
+wait_time = 3.0
+
+[connection signal="timeout" from="Desaparecer" to="." method="_on_desaparecer_timeout"]

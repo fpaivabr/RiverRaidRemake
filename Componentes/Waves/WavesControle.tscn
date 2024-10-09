@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://b237iuhhalnvm"]
+
+[ext_resource type="Script" path="res://Componentes/Waves/Waves.gd" id="1_ksywe"]
+
+[node name="Waves" type="Node"]
+script = ExtResource("1_ksywe")
+
+[node name="WaveSpawn" type="Timer" parent="."]
+autostart = true
+
+[node name="Clock" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="WaveSpawn" to="." method="_on_wave_spawn_timeout"]
+[connection signal="timeout" from="Clock" to="." method="_on_clock_timeout"]

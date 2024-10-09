@@ -1,0 +1,76 @@
+[gd_scene load_steps=12 format=3 uid="uid://dv2s86xr4b6j4"]
+
+[ext_resource type="Script" path="res://Componentes/Personagens/Explosion.gd" id="1_f6lya"]
+[ext_resource type="Texture2D" uid="uid://b0e88qnijlfa" path="res://Assets/Tailmap.png" id="2_wl41i"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pgt1b"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oec2n"]
+atlas = ExtResource("2_wl41i")
+region = Rect2(32, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dc843"]
+atlas = ExtResource("2_wl41i")
+region = Rect2(48, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p3qcc"]
+atlas = ExtResource("2_wl41i")
+region = Rect2(64, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mfok2"]
+atlas = ExtResource("2_wl41i")
+region = Rect2(80, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sioco"]
+atlas = ExtResource("2_wl41i")
+region = Rect2(96, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3gr75"]
+atlas = ExtResource("2_wl41i")
+region = Rect2(112, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ak7tm"]
+atlas = ExtResource("2_wl41i")
+region = Rect2(128, 16, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_nq4wk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oec2n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dc843")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p3qcc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mfok2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sioco")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3gr75")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ak7tm")
+}],
+"loop": true,
+"name": &"explosao",
+"speed": 5.0
+}]
+
+[node name="Explosao" type="Node2D"]
+script = ExtResource("1_f6lya")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_pgt1b")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_nq4wk")
+animation = &"explosao"
+autoplay = "explosao"
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

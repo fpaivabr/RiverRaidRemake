@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://4y3jh3sujicm"]
+
+[ext_resource type="Script" path="res://Componentes/Personagens/Target.gd" id="1_rew0r"]
+[ext_resource type="Texture2D" uid="uid://dke8bw2kxguw1" path="res://Assets/Alvo.png" id="2_skgh4"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pvant"]
+radius = 8.0
+
+[node name="AtaqueBarco" type="Area2D"]
+script = ExtResource("1_rew0r")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_pvant")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0.119577, 3.57628e-07)
+scale = Vector2(0.0307829, 0.03125)
+texture = ExtResource("2_skgh4")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+scale = Vector2(0.8, 0.8)
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

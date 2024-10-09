@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dan7fnyjxxkfc"]
+
+[ext_resource type="PackedScene" uid="uid://bmlo04h0o4pe4" path="res://PowerUps/PowerUp.tscn" id="1_vwb1u"]
+
+[node name="MisselExplosivo" instance=ExtResource("1_vwb1u")]
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+frame = 3

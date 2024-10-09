@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=3 uid="uid://bsrak763qimkk"]
+
+[ext_resource type="PackedScene" uid="uid://ch5g7prg3kl8w" path="res://Componentes/Projeteis/ProjetilComponente.tscn" id="1_xnkju"]
+[ext_resource type="Script" path="res://Componentes/Personagens/AtaqueInimigo.gd" id="2_2hk7c"]
+[ext_resource type="Texture2D" uid="uid://drt0amwaj556e" path="res://Assets/tiro.png" id="3_glij0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gcv0b"]
+size = Vector2(8, 8)
+
+[node name="TipoBala" instance=ExtResource("1_xnkju")]
+script = ExtResource("2_2hk7c")
+fire_rate = 1.0
+
+[node name="Sprite2D" type="Sprite2D" parent="." index="1"]
+texture = ExtResource("3_glij0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="2"]
+shape = SubResource("RectangleShape2D_gcv0b")
