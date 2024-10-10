@@ -1,20 +1,24 @@
 [gd_scene load_steps=4 format=3 uid="uid://kyk0tu7rof2o"]
 
-[ext_resource type="Script" path="res://Scripts/Projectile.gd" id="1_0bbrh"]
+[ext_resource type="Script" path="res://Scripts/Projectile.gd" id="1_oca8e"]
 [ext_resource type="Texture2D" uid="uid://c3ixhq1fc4e3m" path="res://Assets/images/projectile.png" id="1_phvg4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h0hf7"]
 size = Vector2(20, 22)
 
-[node name="Projectile" type="Node2D"]
+[node name="Projectile" type="CharacterBody2D"]
+light_mask = 8
+visibility_layer = 2
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("1_oca8e")
 
-[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
-script = ExtResource("1_0bbrh")
+[node name="Marker2D" type="Marker2D" parent="."]
 
-[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
+[node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("1_phvg4")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -1)
 shape = SubResource("RectangleShape2D_h0hf7")

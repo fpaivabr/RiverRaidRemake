@@ -26,6 +26,7 @@ texture = ExtResource("3_t2pei")
 stretch_mode = 1
 
 [node name="SideObstacle2" type="TextureRect" parent="."]
+layout_mode = 0
 offset_left = 928.0
 offset_top = -1712.0
 offset_right = 1153.0

@@ -1,14 +1,28 @@
-# scripts/Fuel.gd
-extends RigidBody2D
+extends CharacterBody2D
 
-var velocidade = 100
-
-# Movimentação automática
 func _ready():
-	linear_velocity = Vector2(0, velocidade)
+	print("Fuel pronto")
+	set_collision_layer(2)  # Define o layer do fuel
+	set_collision_mask(1)   # Só colide com player e projéteis
 
-# Função de colisão
-func _on_Fuel_body_entered(body):
-	if body is CharacterBody2D:
-		body.reabastecer(30)  # Reabastece o jogador em 30 unidades
-		queue_free()  # Remove o Fuel após ser coletado
+	# Conecta o sinal de colisão
+	connect("body_entered", Callable(self, "_on_body_entered"))
+
+	velocity = Vector2(0, 150)  # Define a velocidade diretamente
+
+func _physics_process(delta):
+	move_and_slide()
+
+	# Remove o Fuel quando sair da tela
+	if position.y > 600:
+		queue_free()
+
+func _on_body_entered(body):
+	if body.name == "Player":
+		print("Colidiu com o Player e foi coletado")
+		body.reabastecer(500)  # Reabastece 1/4 da vida do player
+		queue_free()  # Remove o Fuel
+	elif body.is_in_group("projectile"):
+		print("Colidiu com Projétil:", body.name)
+		body.queue_free()  # Remove o Projétil
+		queue_free()  # Remove o Fuel

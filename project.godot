@@ -14,6 +14,19 @@ config/name="RiverRaidRemake"
 run/main_scene="res://Scenes/MainScene.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 config/icon="res://icon.svg"
+config/git_sha="e6e8202c7470937716e959790d1b29d7357526d0"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/git_sha_project_setting/plugin.cfg", "res://addons/projectile_component/plugin.cfg")
+
+[input]
+
+fire={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194306,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+]
+}
 
 [rendering]
 

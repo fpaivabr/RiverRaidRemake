@@ -11,6 +11,9 @@ size = Vector2(224, 2352)
 [node name="MainScene" type="Node2D"]
 script = ExtResource("1_vhr5j")
 
+[node name="Projectile" parent="." instance=ExtResource("5_nusl4")]
+position = Vector2(579, 472)
+
 [node name="Background" parent="." instance=ExtResource("6_jvoxv")]
 metadata/_edit_use_anchors_ = true
 
@@ -28,12 +31,13 @@ position = Vector2(104, -56)
 position = Vector2(936, -480)
 shape = SubResource("RectangleShape2D_acj52")
 
-[node name="EnemyTimer" type="Timer" parent="."]
+[node name="Player" parent="." instance=ExtResource("1_38efr")]
+position = Vector2(576, 538)
 
 [node name="FuelTimer" type="Timer" parent="."]
 
-[node name="Player" parent="." instance=ExtResource("1_38efr")]
-position = Vector2(581, 570)
+[node name="EnemyATimer" type="Timer" parent="."]
 
-[node name="Projectile" parent="." instance=ExtResource("5_nusl4")]
-position = Vector2(582, 570)
+[node name="EnemyBTimer" type="Timer" parent="."]
+
+[node name="EnemyCTimer" type="Timer" parent="."]

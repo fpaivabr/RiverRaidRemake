@@ -1,19 +1,28 @@
 extends CharacterBody2D
 
-var velocidade = 400
+@export var bullet_speed: float = 600.0  # Velocidade do projétil
 
-# Movimentação do projétil
-func _physics_process(delta):
-	velocity = Vector2(0, -velocidade)  # O projétil vai se mover para cima
+func _ready():
+	print("Projétil pronto")
+	#set_collision_layer(2)  # Define o layer do projétil
+	#set_collision_mask(1)   # Só colide com inimigos e fuel
+
+	# Conecta o sinal de colisão
+	connect("body_entered", Callable(self, "_on_body_entered"))
+
+	velocity = Vector2(0, -bullet_speed)  # Velocidade para cima
+
+func _physics_process(delta: float):
 	move_and_slide()
 
-	# Se o projétil sair da tela, ele é destruído
+	# Verifica se o projétil saiu da tela
 	if position.y < 0:
+		print("Projétil destruído por sair da tela")
 		queue_free()
+	velocity.y = -bullet_speed -bullet_speed*delta
 
-# Função que lida com a colisão
-func _on_Projectile_body_entered(body):
-	pass
-	#if body.name == "Enemy" or body.name == "Obstacle":
-		#body.queue_free()  # Destroi o inimigo/obstáculo
-		#queue_free()  # Destroi o projétil após a colisão
+func _on_body_entered(body):
+	if body.is_in_group("enemy") or body.is_in_group("fuel"):
+		print("Projétil colidiu com:", body.name)
+		body.queue_free()  # Remove o inimigo ou combustível
+		queue_free()  # Remove o projétil
